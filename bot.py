@@ -79,11 +79,6 @@ async def message(update, cotext):
     dialog.List.clear()
 
 
-async def message_dialog(update, cotext):
-    text = update.message.text
-    dialog.List.append(text)
-
-
 async def message_button(update, cotext):
     query = update.callback_query.data
     await update.callback_query.answer()
@@ -92,6 +87,11 @@ async def message_button(update, cotext):
     my_message = await send_text(update, cotext, "GhatGPT думает над вариантами ответа...")
     answer = await chatgpt.send_question(prompt, user_chat_history)
     await my_message.edit_text(answer)
+
+
+async def message_dialog(update, cotext):
+    text = update.message.text
+    dialog.List.append(text)
 
 
 async def profile(update, cotext):
