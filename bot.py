@@ -11,6 +11,7 @@ async def start(update, cotext):
     text = load_message("main")
     await send_photo(update, cotext,"main")
     await send_text(update, cotext, text)
+
     await show_main_menu(update, cotext, {
         'start' : 'главное меню бота',
         'profile' : 'генерация Tinder - профиля 😎',
@@ -20,11 +21,13 @@ async def start(update, cotext):
         'gpt' : 'задать вопрос чату GPT 🧠'
     })
 
+
 async def gpt(update, cotext):
     dialog.mode = "gpt"
     text = load_message("gpt")
     await send_photo(update, cotext,"gpt")
     await send_text(update, cotext, text)
+
 
 async def gpt_dialog(update, cotext):
     text = update.message.text
@@ -32,11 +35,13 @@ async def gpt_dialog(update, cotext):
     answer = await chatgpt.send_question(prompt, text)
     await send_text(update, cotext, answer)
 
+
 async def date(update, cotext):
     dialog.mode = "date"
     text = load_message("date")
     await send_photo(update, cotext,"date")
     await send_text(update, cotext, text)
+
     await send_text_buttons(update, cotext, "Запустить?", {
         "date_grande": "Ариана Гранде",
         "date_robbie": "Марго Робби",
@@ -44,6 +49,7 @@ async def date(update, cotext):
         "date_gosling": "Райан Гослинг",
         "date_hardy": "Том Харди",
     })
+
 
 async def date_dialog(update, cotext):
     text = update.message.text
@@ -61,6 +67,7 @@ async def date_button(update, cotext):
     prompt = load_prompt(query)
     chatgpt.set_prompt(prompt)
 
+
 async def message(update, cotext):
     dialog.mode = "message"
     text = load_message("message")
@@ -70,6 +77,7 @@ async def message(update, cotext):
         'message_date' : "Пригласить на свидание"
     })
     dialog.List.clear()
+
 
 async def message_dialog(update, cotext):
     text = update.message.text
@@ -85,6 +93,7 @@ async def message_button(update, cotext):
     answer = await chatgpt.send_question(prompt, user_chat_history)
     await my_message.edit_text(answer)
 
+
 async def profile(update, cotext):
     dialog.mode = "profile"
     text = load_message("profile")
@@ -93,6 +102,7 @@ async def profile(update, cotext):
     dialog.user.clear()
     dialog.count = 0
     await send_text(update, cotext, "Сколько вам лет?")
+
 
 async def profile_dialog(update, cotext):
     text = update.message.text
@@ -118,6 +128,7 @@ async def profile_dialog(update, cotext):
         answer = await chatgpt.send_question(prompt, user_info)
         await my_message.edit_text(answer)
 
+
 async def opener(update, cotext):
     dialog.mode = "opener"
     text = load_message("opener")
@@ -126,6 +137,7 @@ async def opener(update, cotext):
     dialog.user.clear()
     dialog.count = 0
     await send_text(update, cotext, "Имя девушки?")
+
 
 async def opener_dialog(update, cotext):
     text = update.message.text
@@ -149,7 +161,6 @@ async def opener_dialog(update, cotext):
         user_info = dialog_user_info_to_str(dialog.user)
         answer = await chatgpt.send_question(prompt, user_info)
         await send_text(update, cotext, answer)
-
 
 
 async def hello(update, cotext):
